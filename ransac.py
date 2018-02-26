@@ -1,8 +1,6 @@
 from __future__ import division
-import random as random
+import random
 import numpy as np
-import ransac
-from matplotlib import pyplot as plt
 
 
 def fit_plane(xyz,z_pos=None):
@@ -32,7 +30,7 @@ def fit_plane_ransac(pts, neighbors=None,z_pos=None, dist_inlier=0.05,
     """
     n,_ = pts.shape
     ninlier,models = [],[]
-    for i in xrange(max_iter):
+    for i in range(max_iter):
         if neighbors is None:
             p = pts[np.random.choice(pts.shape[0],nsample,replace=False),:]
         else:
@@ -45,7 +43,7 @@ def fit_plane_ransac(pts, neighbors=None,z_pos=None, dist_inlier=0.05,
             models.append(m)
 
     if models == []:
-        print("RANSAC plane fitting failed!")
+        print ("RANSAC plane fitting failed!")
         return #None
     else: #refit the model to inliers:
         ninlier = np.array(ninlier)
@@ -89,7 +87,7 @@ if __name__ == '__main__':
     ax.scatter3D(xyzs.T[0], xyzs.T[1], xyzs.T[2])
     
     # RANSAC
-    m, b = ransac(xyzs, estimate, lambda x, y: is_inlier(x, y, 0.01), 3, goal_inliers, max_iterations)
+    m, b = run_ransac(xyzs, estimate, lambda x, y: is_inlier(x, y, 0.01), 3, goal_inliers, max_iterations)
     a, b, c, d = m
     xx, yy, zz = plot_plane(a, b, c, d)
     ax.plot_surface(xx, yy, zz, color=(0, 1, 0, 0.5))
