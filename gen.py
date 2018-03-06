@@ -24,7 +24,7 @@ from common import *
 
 ## Define some configuration variables:
 NUM_IMG = -1 # no. of images to use for generation (-1 to use all available):
-INSTANCE_PER_IMAGE = 1 # no. of times to use the same image
+INSTANCE_PER_IMAGE = 100 # no. of times to use the same image
 SECS_PER_IMG = 10 #max time per image in seconds
 
 # path to the data-file, containing image, depth and segmentation:
